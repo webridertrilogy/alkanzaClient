@@ -1,0 +1,50 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<mat-card >
+        <div id="map"></div>
+    <mat-card-title>
+        <div class="row">
+            <div class="col-4">
+                    Calculo Indice Desbalance
+            </div>
+            <div class="col-2 text-right" >
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Radio</span>
+                </div>
+                    <input type="number" min="0" value="1000" pattern="[0-9]" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" #radio>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Indice</span>
+                    </div>
+                        <input type="text" min="0" value="0" pattern="[0-9]" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" #resultado disabled>
+                    </div>
+            </div>
+            <div class="col-3 text-right" >
+                <button *ngIf="!consulta" mat-raised-button color="primary" (click)="realizarCalculo()" >Calcular</button>
+                <button *ngIf="calculado" mat-raised-button color="primary" (click)="guardarCalculo()" >Guardar</button>
+                <button *ngIf="consulta" mat-raised-button color="primary" (click)="limpiarPantalla()" >Iniciar</button>
+            </div>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <!-- this creates a google map on the page with the given lat/lng from -->
+        <!-- the component as the initial center of the map: -->
+        <agm-map (mapClick)="agregarMarcador( $event )" [latitude]="lat" [longitude]="lng" [zoom]="15" [usePanning]='true' #mapa>
+          <agm-marker  [iconUrl]="{url: !marcador.esCentroMedico  ?  'assets/img/beachflag.png' : 'assets/img/images.png', origin: {x:0, y:-3}}" *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.latitud" [longitude]="marcador.longitud" (mouseOver)="onMouseOver( infoWindow, mapa )" (mouseOut)="onMouseOut( infoWindow, mapa)" >
+              <agm-info-window [disableAutoPan]="false" #infoWindow>
+                  <h6>{{ marcador.nombre }}</h6>
+                  <p>{{ marcador.descripcion }}</p>
+                  <!-- <div>
+                      <button mat-raised-button color="primary" (click)="editarMarcador( marcador )" >Editar</button>
+                      <button mat-raised-button color="warn" (click)="borrarMarcador( i )" >Borrar</button>
+                  </div> -->
+              </agm-info-window>
+          </agm-marker>
+        </agm-map>
+        
+    </mat-card-content>
+</mat-card>
