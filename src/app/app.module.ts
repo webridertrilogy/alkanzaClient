@@ -38,9 +38,6 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     HttpClientModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
-      // apiKey: 'AIzaSyAu2rb0mobiznVJnJd6bVb5Bn2WsuXP2QI'
-      // apiKey: 'AIzaSyAE0xV0c0JOtnmADGQXhQSQChhgo1T35JQ'
-      apiKey: 'AIzaSyBLgc_M5kIPprCHa_xBlJofqZKkFJgLgmg',
       libraries: ['geometry', 'places'],
     })
   ],
